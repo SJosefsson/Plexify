@@ -9,7 +9,6 @@ Tv Show Name - SxxExx.fileextension
 """
 
 import os
-import shutil
 import re
 
 def main():
