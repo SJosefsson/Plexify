@@ -28,9 +28,12 @@ def main():
         os.rename(oldFile, newFile)
 
 def userInput():
+    # Ask user to input a path to the folder where the files are
     path = input('Please paste the path to the folder where you want \
 to Plexify your files.\n\
 Write "." if Plexify should search in the current folder\n')
+
+    # Tests the input to see if it's a valid folder
     while True:
         try:
             os.listdir(path)
@@ -38,9 +41,15 @@ Write "." if Plexify should search in the current folder\n')
         except WindowsError:
             path = input('That\'s not a valid folder path. \
 Please try again.\n')
+
+    # Returns a valid path
     return path
 
-def fileNameSearch(path, filename):    
+def fileNameSearch(path, filename):
+    """Searches the file name and checks if it matches the regex, 
+       calls the cleanup function and returns the clean file name
+    """
+
     # This namepattern will find all files named: 
     # tv.show.name.SxxExx.more.text.at.the.end.fileextension
     namepattern = re.compile(r"""^(.*?) # All text from the beginning
@@ -53,13 +62,16 @@ def fileNameSearch(path, filename):
     if found == None:
         return None
         
-    # Clean up the new file name and save it
+    # Clean up the file name and save it
     newFile = nameCleanup(path, found.group(1), found.group(2), filename)
 
+    # Return path and clean file name
     return newFile
 
 def nameCleanup(dirPath, showTitle, episodeNumber, fileEnding):
-    # Clean up each part of the file name and return it
+    """Clean up each part of the file name and return it"""
+    
+    # Clean up each part of the file name
     title = showTitle.replace('.', ' ')
     episodeNumber = '- ' + episodeNumber
     fileExtension = '.' + fileEnding.split('.')[-1]
@@ -67,6 +79,7 @@ def nameCleanup(dirPath, showTitle, episodeNumber, fileEnding):
     # Save each part of the file name as one
     fileName = title + episodeNumber + fileExtension
 
+    # Return path and clean file name
     return os.path.join(dirPath, fileName)
 
 if __name__ == '__main__':
