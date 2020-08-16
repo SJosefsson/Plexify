@@ -12,6 +12,7 @@ import os
 import re
 
 def main():
+    # Call userInput() to get folder path
     dirPath = userInput()
 
     # Iterate through each file in the folder
@@ -24,7 +25,8 @@ def main():
         # Skip file that did not match regex
         if newFile == None:
             continue
-
+        
+        # Rename the file
         os.rename(oldFile, newFile)
 
 def userInput():
