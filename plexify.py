@@ -23,11 +23,12 @@ def main():
         newFile = fileNameSearch(dirPath, filename)
 
         # Skip file that did not match regex
-        if newFile == None:
+        if newFile is None:
             continue
         
         # Rename the file
         os.rename(oldFile, newFile)
+
 
 def userInput():
     # Ask user to input a path to the folder where the files are
@@ -47,6 +48,7 @@ Please try again.\n')
     # Returns a valid path
     return path
 
+
 def fileNameSearch(path, filename):
     """Searches the file name and checks if it matches the regex, 
        calls the cleanup function and returns the clean file name
@@ -61,7 +63,7 @@ def fileNameSearch(path, filename):
     found = namepattern.search(filename)
         
     # Skip file that does not match regex
-    if found == None:
+    if found is None:
         return None
         
     # Clean up the file name and save it
@@ -69,6 +71,7 @@ def fileNameSearch(path, filename):
 
     # Return path and clean file name
     return newFile
+
 
 def nameCleanup(dirPath, showTitle, episodeNumber, fileEnding):
     """Clean up each part of the file name and return it"""
@@ -83,6 +86,7 @@ def nameCleanup(dirPath, showTitle, episodeNumber, fileEnding):
 
     # Return path and clean file name
     return os.path.join(dirPath, fileName)
+
 
 if __name__ == '__main__':
     main()
